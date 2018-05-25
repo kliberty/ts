@@ -431,6 +431,38 @@ void c_kill_job()
     kill(-pid, SIGTERM);
 }
 
+
+void c_stop_job()
+{
+    int pid = 0;
+    /* This will exit if there is any error */
+    get_output_file(&pid);
+
+    if (pid == -1 || pid == 0)
+    {
+        fprintf(stderr, "Error: strange PID received: %i\n", pid);
+        exit(-1);
+    }
+
+    /* Send SIGTERM to the process group, as pid is for process group */
+    kill(-pid, SIGSTOP);
+}
+void c_cont_job()
+{
+    int pid = 0;
+    /* This will exit if there is any error */
+    get_output_file(&pid);
+
+    if (pid == -1 || pid == 0)
+    {
+        fprintf(stderr, "Error: strange PID received: %i\n", pid);
+        exit(-1);
+    }
+
+    /* Send SIGTERM to the process group, as pid is for process group */
+    kill(-pid, SIGCONT);
+}
+
 void c_remove_job()
 {
     struct msg m;

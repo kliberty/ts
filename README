@@ -1,3 +1,9 @@
+This repository was forked from the most recent release on [http://vicerveza.homeunix.net/~viric/soft/ts/](http://vicerveza.homeunix.net/~viric/soft/ts/)
+
+The primary repo location is [on bitbucket](https://bitbucket.org/kliberty/ts/src).
+<br>
+There is a secondary mirror [on github](https://github.com/kliberty/ts)
+
 Users
 ------------------------
 If you are in a system which understands POSIX and has the GNU toolkit, you

@@ -18,4 +18,6 @@ If you want to install to another path than /usr/local, you can run:
 Developers
 ------------------------
 Run ". setenv" before adding bugs to the database.
-Use 'bug' for the database.  http://freshmeat.net/projects/bug/
+Use 'bug' for the database.  http://freshmeat.net/projects/bug/ (this reports to the original author)
+
+Use bitbucket or github to send an issue to me.

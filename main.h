@@ -90,6 +90,7 @@ struct Command_line {
         int num;
     } command;
     char *label;
+    char *queue;
     int num_slots; /* Slots for the job to use. Default 1 */
 };
 

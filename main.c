@@ -45,6 +45,7 @@ static void default_command_line()
     command_line.wait_enqueuing = 1;
     command_line.stderr_apart = 0;
     command_line.num_slots = 1;
+    command_line.queue = 0;
 }
 
 void get_command(int index, int argc, char **argv)
@@ -84,13 +85,16 @@ void parse_opts(int argc, char **argv)
 
     /* Parse options */
     while(1) {
-        c = getopt(argc, argv, ":VhKgClnfmBEr:t:c:o:p:w:k:z:Z:u:s:U:i:N:L:dS:D:");
+        c = getopt(argc, argv, ":VhKgClnfmBEr:t:c:o:p:w:k:z:Z:u:s:U:i:N:L:dS:D:Q:");
 
         if (c == -1)
             break;
 
         switch(c)
         {
+            case 'Q':
+                command_line.queue = optarg;
+                break;
             case 'K':
                 command_line.request = c_KILL_SERVER;
                 command_line.should_go_background = 0;
@@ -384,6 +388,7 @@ static void print_help(const char *cmd)
     printf("  -h       show this help\n");
     printf("  -V       show the program version\n");
     printf("Options adding jobs:\n");
+    printf("  -Q [qu]  use qu to add a job to a specific queue.\n");
     printf("  -n       don't store the output of the command.\n");
     printf("  -E       Keep stderr apart, in a name like the output file, but adding '.e'.\n");
     printf("  -g       gzip the stored output (if not -n).\n");

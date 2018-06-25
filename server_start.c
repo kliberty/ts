@@ -20,7 +20,7 @@
 
 extern int server_socket;
 
-static char *socket_path;
+static char *socket_path = 0;
 static int should_check_owner = 0;
 
 static int fork_server();
@@ -30,20 +30,24 @@ void create_socket_path(char **path)
     char *tmpdir;
     char userid[20];
     int size;
+    char* tmpstr;
+    
 
-    /* As a priority, TS_SOCKET mandates over the path creation */
-    *path = getenv("TS_SOCKET");
-    if (*path != 0)
-    {
-        /* We need this in our memory, for forks and future 'free'. */
-        size = strlen(*path) + 1;
-        *path = (char *) malloc(size);
-        strcpy(*path, getenv("TS_SOCKET"));
+    if (*path == 0) {
+        /* As a priority, TS_SOCKET mandates over the path creation */
+        *path = getenv("TS_SOCKET");
+        if (*path != 0)
+        {
+            /* We need this in our memory, for forks and future 'free'. */
+            size = strlen(*path) + 1;
+            *path = (char *) malloc(size);
+            strcpy(*path, getenv("TS_SOCKET"));
 
-        /* We don't want to check ownership of the socket here,
-         * as the user may have thought of some shared queue */
-        should_check_owner = 0;
-        return;
+            /* We don't want to check ownership of the socket here,
+             * as the user may have thought of some shared queue */
+            should_check_owner = 0;
+            return;
+        }
     }
 
     /* ... if the $TS_SOCKET doesn't exist ... */
@@ -56,12 +60,19 @@ void create_socket_path(char **path)
     sprintf(userid, "%u", (unsigned int) getuid());
 
     /* Calculate the size */
-    size = strlen(tmpdir) + strlen("/socket-ts.") + strlen(userid) + 1;
-
-    /* Freed after preparing the socket address */
-    *path = (char *) malloc(size);
-
-    sprintf(*path, "%s/socket-ts.%s", tmpdir, userid);
+    if (*path == 0) {
+        size = strlen(tmpdir) + strlen("/socket-ts.") + strlen(userid) + 1;
+        /* Freed after preparing the socket address */
+        *path = (char *) malloc(size);
+        sprintf(*path, "%s/socket-ts.%s", tmpdir, userid);
+    }
+    else {
+        size = strlen(tmpdir) + strlen("/socket-ts.") + strlen(socket_path) +  strlen(userid) + 1;
+        /* Freed after preparing the socket address */
+        tmpstr = (char *) malloc(size);
+        sprintf(tmpstr, "%s/socket-ts.%s.%s", tmpdir, *path, userid);
+        *path = tmpstr;
+    }
 
     should_check_owner = 1;
 }
@@ -153,6 +164,9 @@ int ensure_server_up()
     if (server_socket == -1)
         error("getting the server socket");
 
+    if (command_line.queue) {
+        socket_path = command_line.queue;
+    }
     create_socket_path(&socket_path);
 
     res = try_connect(server_socket);

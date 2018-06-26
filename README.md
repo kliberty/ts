@@ -3,6 +3,10 @@ This repository was forked from the most recent release on [http://vicerveza.hom
 The primary repo location is [on bitbucket](https://bitbucket.org/kliberty/ts/src). <br>
 There is a secondary mirror [on github](https://github.com/kliberty/ts)
 
+Why this fork
+-----------------
+While `ts` already had `-k` to send a job `SIGTERM`, this fork adds `-z` and `-Z` to send `SIGSTOP` and `SIGCONT` respectively.
+
 Users
 ------------------------
 If you are in a system which understands POSIX and has the GNU toolkit, you

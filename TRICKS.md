@@ -16,6 +16,8 @@ different resources. For instance, using `bash`:
     alias tsram='TS_SOCKET=/tmp/socket.ram ts'
     alias tsnet='TS_SOCKET=/tmp/socket.net ts'
 ```
+There is also a new `-Q [queue]` option which has the same effect.
+If `TS_SOCKET` is provided then it will take precedence.
 
 You can also create shell scripts like this:
 ```

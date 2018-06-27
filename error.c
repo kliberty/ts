@@ -56,7 +56,7 @@ static void dump_proc_info(FILE *out)
         fprintf(out, "type UNKNOWN\n");
 }
 
-static FILE * open_error_file()
+static FILE * open_error_file(void)
 {
     int fd;
     FILE* out;

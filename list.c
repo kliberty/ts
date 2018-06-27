@@ -14,7 +14,7 @@
 extern int busy_slots;
 extern int max_slots;
 
-char * joblistdump_headers()
+char * joblistdump_headers(void)
 {
     char * line;
 
@@ -30,7 +30,7 @@ char * joblistdump_headers()
     return line;
 }
 
-char * joblist_headers()
+char * joblist_headers(void)
 {
     char * line;
 

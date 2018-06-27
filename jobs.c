@@ -107,7 +107,7 @@ static struct Job * findjob(int jobid)
     return 0;
 }
 
-static struct Job * findjob_holding_client()
+static struct Job * findjob_holding_client(void)
 {
     struct Job *p;
 
@@ -139,7 +139,7 @@ static struct Job * find_finished_job(int jobid)
     return 0;
 }
 
-static int count_not_finished_jobs()
+static int count_not_finished_jobs(void)
 {
     int count=0;
     struct Job *p;
@@ -182,7 +182,7 @@ void s_mark_job_running(int jobid)
 }
 
 /* -1 means nothing awaken, otherwise returns the jobid awaken */
-int wake_hold_client()
+int wake_hold_client(void)
 {
     struct Job *p;
     p = findjob_holding_client();
@@ -253,7 +253,7 @@ void s_list(int s)
     }
 }
 
-static struct Job * newjobptr()
+static struct Job * newjobptr(void)
 {
     struct Job *p;
 
@@ -297,7 +297,7 @@ static int find_last_jobid_in_queue(int neglect_jobid)
 }
 
 /* Returns -1 if no last job id found */
-static int find_last_stored_jobid_finished()
+static int find_last_stored_jobid_finished(void)
 {
     struct Job *p;
     int last_jobid = -1;
@@ -503,7 +503,7 @@ void s_removejob(int jobid)
 }
 
 /* -1 if no one should be run. */
-int next_run_job()
+int next_run_job(void)
 {
     struct Job *p;
 
@@ -552,7 +552,7 @@ int next_run_job()
 }
 
 /* Returns 1000 if no limit, The limit otherwise. */
-static int get_max_finished_jobs()
+static int get_max_finished_jobs(void)
 {
     char *limit;
 
@@ -709,7 +709,7 @@ void job_finished(const struct Result *result, int jobid)
     }
 }
 
-void s_clear_finished()
+void s_clear_finished(void)
 {
     struct Job *p;
 

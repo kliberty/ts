@@ -97,7 +97,7 @@ static void sigterm_handler(int n)
     exit(1);
 }
 
-static void set_default_maxslots()
+static void set_default_maxslots(void)
 {
     char *str;
 
@@ -110,7 +110,7 @@ static void set_default_maxslots()
     }
 }
 
-static void install_sigterm_handler()
+static void install_sigterm_handler(void)
 {
   struct sigaction act;
 
@@ -122,7 +122,7 @@ static void install_sigterm_handler()
   sigaction(SIGTERM, &act, NULL);
 }
 
-static int get_max_descriptors()
+static int get_max_descriptors(void)
 {
     const int MARGIN = 5; /* stdin, stderr, listen socket, and whatever */
     int max;

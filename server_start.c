@@ -23,7 +23,7 @@ extern int server_socket;
 static char *socket_path = 0;
 static int should_check_owner = 0;
 
-static int fork_server();
+static int fork_server(void);
 
 void create_socket_path(char **path)
 {
@@ -91,7 +91,7 @@ int try_connect(int s)
 }
 
 static void
-try_check_ownership()
+try_check_ownership(void)
 {
     int res;
     struct stat socketstat;
@@ -117,7 +117,7 @@ void wait_server_up(int fd)
 }
 
 /* Returns the fd where to wait for the parent notification */
-static int fork_server()
+static int fork_server(void)
 {
     int pid;
     int p[2];
@@ -155,7 +155,7 @@ void notify_parent(int fd)
     close(fd);
 }
 
-int ensure_server_up()
+int ensure_server_up(void)
 {
     int res;
     int notify_fd;

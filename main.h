@@ -199,42 +199,42 @@ enum ExitCodes
 
 
 /* client.c */
-void c_new_job();
-void c_list_jobs();
-void c_shutdown_server();
-void c_wait_server_lines();
-void c_clear_finished();
-int c_wait_server_commands();
+void c_new_job(void);
+void c_list_jobs(void);
+void c_shutdown_server(void);
+void c_wait_server_lines(void);
+void c_clear_finished(void);
+int c_wait_server_commands(void);
 void c_send_runjob_ok(const char *ofname, int pid);
-int c_tail();
-int c_cat();
-void c_show_output_file();
-void c_remove_job();
-void c_show_pid();
-void c_kill_job();
-void c_cont_job();
-void c_stop_job();
-int c_wait_job();
-int c_wait_running_job();
-int c_wait_job_recv();
-void c_move_urgent();
-int c_wait_newjob_ok();
-void c_get_state();
-void c_swap_jobs();
-void c_show_info();
-char *build_command_string();
+int c_tail(void);
+int c_cat(void);
+void c_show_output_file(void);
+void c_remove_job(void);
+void c_show_pid(void);
+void c_kill_job(void);
+void c_cont_job(void);
+void c_stop_job(void);
+int c_wait_job(void);
+int c_wait_running_job(void);
+int c_wait_job_recv(void);
+void c_move_urgent(void);
+int c_wait_newjob_ok(void);
+void c_get_state(void);
+void c_swap_jobs(void);
+void c_show_info(void);
+char *build_command_string(void);
 void c_send_max_slots(int max_slots);
-void c_get_max_slots();
-void c_check_version();
+void c_get_max_slots(void);
+void c_check_version(void);
 
 /* jobs.c */
 void s_list(int s);
 int s_newjob(int s, struct msg *m);
 void s_removejob(int jobid);
 void job_finished(const struct Result *result, int jobid);
-int next_run_job();
+int next_run_job(void);
 void s_mark_job_running(int jobid);
-void s_clear_finished();
+void s_clear_finished(void);
 void s_process_runjob_ok(int jobid, char *oname, int pid);
 void s_send_output(int socket, int jobid);
 int s_remove_job(int s, int *jobid);
@@ -255,7 +255,7 @@ void s_set_max_slots(int new_max_slots);
 void s_get_max_slots(int s);
 int job_is_running(int jobid);
 int job_is_holding_client(int jobid);
-int wake_hold_client();
+int wake_hold_client(void);
 
 /* server.c */
 void server_main(int notify_fd, char *_path);
@@ -263,13 +263,13 @@ void dump_conns_struct(FILE *out);
 
 /* server_start.c */
 int try_connect(int s);
-void wait_server_up();
-int ensure_server_up();
+void wait_server_up(int fd);
+int ensure_server_up(void);
 void notify_parent(int fd);
 void create_socket_path(char **path);
 
 /* execute.c */
-int run_job();
+int run_job(struct Result *res);
 
 /* client_run.c */
 void c_run_tail(const char *filename);
@@ -286,10 +286,10 @@ void error(const char *str, ...);
 void warning(const char *str, ...);
 
 /* signals.c */
-void ignore_sigpipe();
-void restore_sigmask();
-void block_sigint();
-void unblock_sigint_and_install_handler();
+void ignore_sigpipe(void);
+void restore_sigmask(void);
+void block_sigint(void);
+void unblock_sigint_and_install_handler(void);
 
 /* msg.c */
 void send_bytes(const int fd, const char *data, int bytes);
@@ -305,10 +305,10 @@ void error_msg(const struct msg *m, const char *str, ...);
 void warning_msg(const struct msg *m, const char *str, ...);
 
 /* list.c */
-char * joblist_headers();
+char * joblist_headers(void);
 char * joblist_line(const struct Job *p);
 char * joblistdump_torun(const struct Job *p);
-char * joblistdump_headers();
+char * joblistdump_headers(void);
 
 /* print.c */
 int fd_nprintf(int fd, int maxsize, const char *fmt, ...);
@@ -327,7 +327,7 @@ float pinfo_time_run(const struct Procinfo *p);
 void pinfo_init(struct Procinfo *p);
 
 /* env.c */
-char * get_environment();
+char * get_environment(void);
 
 /* tail.c */
 int tail_file(const char *fname, int last_lines);

@@ -29,7 +29,7 @@ static char version[] = "Task Spooler v1.2.0 - a task queue system for the unix 
 "Copyright (C) 2007-2016  Lluis Batlle i Rossell";
 
 
-static void default_command_line()
+static void default_command_line(void)
 {
     command_line.request = c_LIST;
     command_line.need_server = 0;
@@ -315,7 +315,7 @@ void parse_opts(int argc, char **argv)
     }
 }
 
-static void fill_first_3_handles()
+static void fill_first_3_handles(void)
 {
     int tmp_pipe1[2];
     int tmp_pipe2[2];
@@ -327,7 +327,7 @@ static void fill_first_3_handles()
     close(tmp_pipe2[1]);
 }
 
-static void go_background()
+static void go_background(void)
 {
     int pid;
     pid = fork();
@@ -400,18 +400,18 @@ static void print_help(const char *cmd)
     printf("  -N <num> number of slots required by the job (1 default).\n");
 }
 
-static void print_version()
+static void print_version(void)
 {
     puts(version);
 }
 
-static void set_getopt_env()
+static void set_getopt_env(void)
 {
     old_getopt_env = getenv("POSIXLY_CORRECT");
     putenv(getopt_env);
 }
 
-static void unset_getopt_env()
+static void unset_getopt_env(void)
 {
     if (old_getopt_env == NULL)
     {
@@ -446,7 +446,7 @@ int main(int argc, char **argv)
     switch(command_line.request)
     {
     case c_SHOW_VERSION:
-        print_version(argv[0]);
+        print_version();
         break;
     case c_SHOW_HELP:
         print_help(argv[0]);

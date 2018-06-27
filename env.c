@@ -51,7 +51,7 @@ static int fork_command(const char *command)
     return p[0];
 }
 
-char * get_environment()
+char * get_environment(void)
 {
     char *ptr;
     char *command;

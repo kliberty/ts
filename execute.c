@@ -301,7 +301,7 @@ static void sigchld_handler(int val)
 {
 }
 
-static void program_signal()
+static void program_signal(void)
 {
   struct sigaction act;
 

@@ -15,10 +15,10 @@
 #include "main.h"
 
 static void c_end_of_job(const struct Result *res);
-static void c_wait_job_send();
-static void c_wait_running_job_send();
+static void c_wait_job_send(void);
+static void c_wait_running_job_send(void);
 
-char *build_command_string()
+char *build_command_string(void)
 {
     int size;
     int i;
@@ -54,7 +54,7 @@ char *build_command_string()
     return commandstring;
 }
 
-void c_new_job()
+void c_new_job(void)
 {
     struct msg m;
     char *new_command;
@@ -100,7 +100,7 @@ void c_new_job()
     free(myenv);
 }
 
-int c_wait_newjob_ok()
+int c_wait_newjob_ok(void)
 {
     struct msg m;
     int res;
@@ -119,7 +119,7 @@ int c_wait_newjob_ok()
     return m.u.jobid;
 }
 
-int c_wait_server_commands()
+int c_wait_server_commands(void)
 {
     struct msg m;
     int res;
@@ -157,7 +157,7 @@ int c_wait_server_commands()
     return -1;
 }
 
-void c_wait_server_lines()
+void c_wait_server_lines(void)
 {
     struct msg m;
     int res;
@@ -183,7 +183,7 @@ void c_wait_server_lines()
     }
 }
 
-void c_list_jobs()
+void c_list_jobs(void)
 {
     struct msg m;
 
@@ -193,7 +193,7 @@ void c_list_jobs()
 }
 
 /* Exits if wrong */
-void c_check_version()
+void c_check_version(void)
 {
     struct msg m;
     int res;
@@ -224,7 +224,7 @@ void c_check_version()
         error("Error calling the 2nd recv_msg in c_check_version");
 }
 
-void c_show_info()
+void c_show_info(void)
 {
     struct msg m;
     int res;
@@ -296,7 +296,7 @@ static void c_end_of_job(const struct Result *res)
     send_msg(server_socket, &m);
 }
 
-void c_shutdown_server()
+void c_shutdown_server(void)
 {
     struct msg m;
 
@@ -304,7 +304,7 @@ void c_shutdown_server()
     send_msg(server_socket, &m);
 }
 
-void c_clear_finished()
+void c_clear_finished(void)
 {
     struct msg m;
 
@@ -361,7 +361,7 @@ static char * get_output_file(int *pid)
     return 0;
 }
 
-int c_tail()
+int c_tail(void)
 {
     char *str;
     int pid;
@@ -377,7 +377,7 @@ int c_tail()
     return tail_file(str, 10 /* Last lines to show */);
 }
 
-int c_cat()
+int c_cat(void)
 {
     char *str;
     int pid;
@@ -392,7 +392,7 @@ int c_cat()
     return tail_file(str, -1 /* All the lines */);
 }
 
-void c_show_output_file()
+void c_show_output_file(void)
 {
     char *str;
     int pid;
@@ -407,7 +407,7 @@ void c_show_output_file()
     free(str);
 }
 
-void c_show_pid()
+void c_show_pid(void)
 {
     int pid;
     /* This will exit if there is any error */
@@ -415,7 +415,7 @@ void c_show_pid()
     printf("%i\n", pid);
 }
 
-void c_kill_job()
+void c_kill_job(void)
 {
     int pid = 0;
     /* This will exit if there is any error */
@@ -432,7 +432,7 @@ void c_kill_job()
 }
 
 
-void c_stop_job()
+void c_stop_job(void)
 {
     int pid = 0;
     /* This will exit if there is any error */
@@ -447,7 +447,7 @@ void c_stop_job()
     /* Send SIGTERM to the process group, as pid is for process group */
     kill(-pid, SIGSTOP);
 }
-void c_cont_job()
+void c_cont_job(void)
 {
     int pid = 0;
     /* This will exit if there is any error */
@@ -463,7 +463,7 @@ void c_cont_job()
     kill(-pid, SIGCONT);
 }
 
-void c_remove_job()
+void c_remove_job(void)
 {
     struct msg m;
     int res;
@@ -496,7 +496,7 @@ void c_remove_job()
     /* This will never be reached */
 }
 
-int c_wait_job_recv()
+int c_wait_job_recv(void)
 {
     struct msg m;
     int res;
@@ -527,7 +527,7 @@ int c_wait_job_recv()
     return -1;
 }
 
-static void c_wait_job_send()
+static void c_wait_job_send(void)
 {
     struct msg m;
 
@@ -537,7 +537,7 @@ static void c_wait_job_send()
     send_msg(server_socket, &m);
 }
 
-static void c_wait_running_job_send()
+static void c_wait_running_job_send(void)
 {
     struct msg m;
 
@@ -548,14 +548,14 @@ static void c_wait_running_job_send()
 }
 
 /* Returns the errorlevel */
-int c_wait_job()
+int c_wait_job(void)
 {
     c_wait_job_send();
     return c_wait_job_recv();
 }
 
 /* Returns the errorlevel */
-int c_wait_running_job()
+int c_wait_running_job(void)
 {
     c_wait_running_job_send();
     return c_wait_job_recv();
@@ -571,7 +571,7 @@ void c_send_max_slots(int max_slots)
     send_msg(server_socket, &m);
 }
 
-void c_get_max_slots()
+void c_get_max_slots(void)
 {
     struct msg m;
     int res;
@@ -595,7 +595,7 @@ void c_get_max_slots()
     }
 }
 
-void c_move_urgent()
+void c_move_urgent(void)
 {
     struct msg m;
     int res;
@@ -631,7 +631,7 @@ void c_move_urgent()
     return;
 }
 
-void c_get_state()
+void c_get_state(void)
 {
     struct msg m;
     int res;
@@ -668,7 +668,7 @@ void c_get_state()
     return;
 }
 
-void c_swap_jobs()
+void c_swap_jobs(void)
 {
     struct msg m;
     int res;

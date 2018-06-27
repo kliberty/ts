@@ -7,6 +7,8 @@ Why this fork
 -----------------
 While `ts` already had `-k` to send a job `SIGTERM`, this fork adds `-z` and `-Z` to send `SIGSTOP` and `SIGCONT` respectively.
 
+Adds a `-Q` option which behaves like the `TS_SOCKET` environment variable refered to in `TRICKS.md`. Using `-Q` will start multiple services allowing multiple queues to be used.
+
 Users
 ------------------------
 If you are in a system which understands POSIX and has the GNU toolkit, you

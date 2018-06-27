@@ -270,9 +270,9 @@ void c_send_runjob_ok(const char *ofname, int pid)
     /* Prepare the message */
     m.type = RUNJOB_OK;
     if (ofname) /* ofname == 0, skipped execution */
-	m.u.output.store_output = command_line.store_output;
+        m.u.output.store_output = command_line.store_output;
     else
-	m.u.output.store_output = 0;
+        m.u.output.store_output = 0;
     m.u.output.pid = pid;
     if (m.u.output.store_output)
         m.u.output.ofilename_size = strlen(ofname) + 1;

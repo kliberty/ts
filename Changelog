@@ -11,6 +11,9 @@ Doubtful tasks:
 Future:
  - Use a better system than mkstemp() for finding output files, so we can add
    .gz to the gzipped outputs.
+v1.2.1:
+ - Change all functions declared xx() to xx(void)
+ - Fix any errors generated where xx(arg) was occuring
 v1.2.0:
  - Add optiion -Q to replace the TS_SOCKET variable.
 v1.1.0:

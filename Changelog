@@ -11,6 +11,8 @@ Doubtful tasks:
 Future:
  - Use a better system than mkstemp() for finding output files, so we can add
    .gz to the gzipped outputs.
+v1.2.0:
+ - Add optiion -Q to replace the TS_SOCKET variable.
 v1.1.0:
  - Add options -z and -Z to suspend and continue repsectively.
 v1.0:
